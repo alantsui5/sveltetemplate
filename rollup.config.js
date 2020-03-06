@@ -7,7 +7,7 @@ import { config } from '@sveltech/routify'
 import copy from 'rollup-plugin-copy'
 import del from 'del'
 import ppidChanged from 'ppid-changed'
-
+import autoPreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH;
 const { distDir, staticDir, sourceDir, dynamicImports: split } = config
@@ -37,7 +37,8 @@ export default {
 			// a separate file — better for performance
 			css: css => {
 				css.write(`${buildDir}/bundle.css`);
-			}
+			},
+			preprocess: autoPreprocess()
 		}),
 
 		// If you have external dependencies installed from
